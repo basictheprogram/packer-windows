@@ -165,7 +165,7 @@
     "autounattend": "./answer_files/10/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
-    "headless": "false",
+    "headless": "true",
     "iso_checksum": "3d39dd9bd37db5b3c80801ae44003802a9c770a7400a1b33027ca474a1a7c691",
     "iso_checksum_type": "sha256",
     "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/5/D/65D18931-F626-4A35-AD5B-F5DA41FE6B76/16299.15.170928-1534.rs3_release_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",

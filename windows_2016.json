@@ -154,7 +154,7 @@
     "autounattend": "./answer_files/2016/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
-    "headless": "true",
+    "headless": "false",
     "hyperv_switchname": "{{env `hyperv_switchname`}}",
     "iso_checksum": "70721288BBCDFE3239D8F8C0FAE55F1F",
     "iso_checksum_type": "md5",
