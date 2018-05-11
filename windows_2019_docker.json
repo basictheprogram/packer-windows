@@ -1,52 +1,49 @@
 {
   "builders": [
     {
-      "boot_wait": "6m",
+      "boot_wait": "0s",
       "communicator": "winrm",
-      "cpu": "2",
+      "cpu": 2,
       "disk_size": "{{user `disk_size`}}",
+      "enable_secure_boot": true,
+      "enable_virtualization_extensions": true,
       "floppy_files": [
         "{{user `autounattend`}}",
-        "./floppy/WindowsPowershell.lnk",
-        "./floppy/PinTo10.exe",
-        "./scripts/fixnetwork.ps1",
         "./scripts/disable-screensaver.ps1",
         "./scripts/disable-winrm.ps1",
-        "./scripts/enable-winrm.ps1",
+        "./scripts/docker/enable-winrm.ps1",
+        "./scripts/docker/2016/install-containers-feature.ps1",
         "./scripts/microsoft-updates.bat",
         "./scripts/win-updates.ps1"
       ],
-      "guest_additions_mode": "none",
+      "guest_additions_mode": "disable",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "ram_size": "2048",
+      "ram_size": 2048,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "switch_name": "{{user `switch_name`}}",
+      "switch_name": "{{user `hyperv_switchname`}}",
       "type": "hyperv-iso",
-      "vm_name": "windows_10",
+      "vm_name": "WindowsServer2019Docker",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
       "winrm_username": "vagrant"
     },
     {
-      "boot_command": "",
-      "boot_wait": "6m",
+      "boot_wait": "2m",
       "communicator": "winrm",
       "disk_size": "{{user `disk_size`}}",
       "disk_type_id": "{{user `disk_type_id`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
-        "./floppy/WindowsPowershell.lnk",
-        "./floppy/PinTo10.exe",
-        "./scripts/fixnetwork.ps1",
         "./scripts/disable-screensaver.ps1",
         "./scripts/disable-winrm.ps1",
-        "./scripts/enable-winrm.ps1",
+        "./scripts/docker/enable-winrm.ps1",
+        "./scripts/docker/2016/install-containers-feature.ps1",
         "./scripts/microsoft-updates.bat",
         "./scripts/win-updates.ps1"
       ],
-      "guest_os_type": "windows9-64",
+      "guest_os_type": "windows9srv-64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
@@ -54,13 +51,14 @@
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
       "version": 12,
-      "vm_name": "windows_10",
+      "vm_name": "WindowsServer2019Docker",
       "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
         "RemoteDisplay.vnc.port": "5900",
         "memsize": "2048",
         "numvcpus": "2",
-        "scsi0.virtualDev": "lsisas1068"
+        "scsi0.virtualDev": "lsisas1068",
+        "vhv.enable": "{{user `vhv_enable`}}"
       },
       "vmx_remove_ethernet_interfaces": true,
       "vnc_port_max": 5980,
@@ -70,27 +68,25 @@
       "winrm_username": "vagrant"
     },
     {
-      "boot_command": "",
-      "boot_wait": "6m",
+      "boot_wait": "2m",
       "communicator": "winrm",
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
-        "./floppy/WindowsPowershell.lnk",
-        "./floppy/PinTo10.exe",
-        "./scripts/fixnetwork.ps1",
         "./scripts/disable-screensaver.ps1",
         "./scripts/disable-winrm.ps1",
-        "./scripts/enable-winrm.ps1",
+        "./scripts/docker/enable-winrm.ps1",
+        "./scripts/docker/2016/install-containers-feature.ps1",
         "./scripts/microsoft-updates.bat",
         "./scripts/win-updates.ps1"
       ],
       "guest_additions_mode": "disable",
-      "guest_os_type": "Windows10_64",
+      "guest_os_type": "Windows2012_64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "post_shutdown_delay": "10s",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
       "vboxmanage": [
@@ -107,7 +103,7 @@
           "2"
         ]
       ],
-      "vm_name": "windows_10",
+      "vm_name": "WindowsServer2019Docker",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
       "winrm_username": "vagrant"
@@ -115,32 +111,15 @@
   ],
   "post-processors": [
     {
-      "keep_input_artifact": true,
-      "output": "windows_10_{{.Provider}}.box",
+      "keep_input_artifact": false,
+      "output": "windows_2019_docker_{{.Provider}}.box",
       "type": "vagrant",
-      "vagrantfile_template": "vagrantfile-windows_10.template",
-      "only": ["virtualbox-iso"]
-    },
-    {
-      "keep_input_artifact": true,
-      "type" : "vsphere",
-      "cluster" : "{{user `vsphere_cluster`}}",
-      "datacenter" : "{{user `vsphere_datacenter`}}",
-      "datastore" : "{{user `vsphere_datastore`}}",
-      "host" : "{{user `vsphere_host`}}",
-      "password" : "{{user `vsphere_password`}}",
-      "username" : "{{user `vsphere_username`}}",
-      "vm_name" : "{{user `vsphere_vm_name`}}",
-      "vm_network" : "{{user `vsphere_vm_network`}}",
-      "insecure" : "{{user `vsphere_insecure`}}",
-      "disk_mode" : "{{user `vsphere_disk_mode`}}",
-      "only": ["vmware-iso"]
-  }
+      "vagrantfile_template": "vagrantfile-windows_2016.template"
+    }
   ],
   "provisioners": [
     {
       "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
-      "remote_path": "/tmp/script.bat",
       "scripts": [
         "./scripts/vm-guest-tools.bat",
         "./scripts/enable-rdp.bat"
@@ -149,7 +128,8 @@
     },
     {
       "scripts": [
-        "./scripts/debloat-windows.ps1"
+        "./scripts/debloat-windows.ps1",
+        "./scripts/docker/set-winrm-automatic.ps1"
       ],
       "type": "powershell"
     },
@@ -158,20 +138,28 @@
       "type": "windows-restart"
     },
     {
+      "environment_vars": [
+        "docker_images={{user `docker_images`}}",
+        "docker_provider={{user `docker_provider`}}",
+        "docker_version={{user `docker_version`}}"
+      ],
       "scripts": [
-        "./scripts/set-powerplan.ps1",
+        "./scripts/docker/add-docker-group.ps1",
+        "./scripts/docker/install-docker.ps1",
+        "./scripts/docker/docker-pull.ps1",
+        "./scripts/wait-for-tiworker.ps1",
+        "./scripts/docker/open-docker-insecure-port.ps1",
+        "./scripts/docker/open-docker-swarm-ports.ps1",
+        "./scripts/docker/remove-docker-key-json.ps1",
         "./scripts/docker/disable-windows-defender.ps1"
       ],
       "type": "powershell"
     },
     {
-      "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
-      "remote_path": "/tmp/script.bat",
       "scripts": [
-        "./scripts/pin-powershell.bat",
-        "./scripts/compile-dotnet-assemblies.bat",
         "./scripts/set-winrm-automatic.bat",
         "./scripts/uac-enable.bat",
+        "./scripts/compile-dotnet-assemblies.bat",
         "./scripts/dis-updates.bat",
         "./scripts/compact.bat"
       ],
@@ -179,13 +167,17 @@
     }
   ],
   "variables": {
-    "autounattend": "./answer_files/10/Autounattend.xml",
+    "autounattend": "./answer_files/2019/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
+    "docker_images": "microsoft/nanoserver-insider microsoft/windowsservercore-insider",
+    "docker_provider": "DockerProvider",
+    "docker_version": "stable",
     "headless": "false",
-    "iso_checksum": "27e4feb9102f7f2b21ebdb364587902a70842fb550204019d1a14b120918e455",
+    "iso_checksum": "ab5a4980d4a7b8e9028124aef7b2a01ed85b3e32762d8bf15ed21b991f63db6f",
     "iso_checksum_type": "sha256",
-    "iso_url": "https://software-download.microsoft.com/download/pr/17134.1.180410-1804.rs4_release_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "iso_url": "https://software-download.microsoft.com/db/Windows_InsiderPreview_Server_vNext_en-us_17639.iso",
+    "manually_download_iso_from": "https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewserver",
     "restart_timeout": "5m",
     "vhv_enable": "false",
     "winrm_timeout": "6h"
