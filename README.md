@@ -28,15 +28,16 @@ The following Windows versions are known to work (built with VMware Fusion Pro
 10.1.1):
 
 * Windows 10
-  * Windows 10 1709
+  * Windows 10 1803 -> Vagrant Cloud box [StefanScherer/windows_10](https://app.vagrantup.com/StefanScherer/boxes/windows_10)
   * Windows 10 Insider
-* Windows Server 2016 Desktop
-* Windows Server 2019 Desktop (Insider Preview)
+* Windows Server 2016 Desktop -> Vagrant Cloud box [StefanScherer/windows_2016](https://app.vagrantup.com/StefanScherer/boxes/windows_2016)
+* Windows Server 2019 Desktop -> Vagrant Cloud box [StefanScherer/windows_2019](https://app.vagrantup.com/StefanScherer/boxes/windows_2019)
 * Windows Server Core
-  * Windows Server 2016 without and with Docker
+  * Windows Server 2016 without and with Docker -> Vagrant Cloud box [StefanScherer/windows_2016_docker](https://app.vagrantup.com/StefanScherer/boxes/windows_2016_docker)
+  * Windows Server 2019 without and with Docker -> Vagrant Cloud box [StefanScherer/windows_2019_docker](https://app.vagrantup.com/StefanScherer/boxes/windows_2019_docker)
   * Windows Server 1709 without and with Docker
+  * Windows Server 1803 without and with Docker
   * Windows Server InsiderPreview Semi-Annual without and with Docker
-  * Windows Server 2019 Core(Insider Preview)
 
 You may find other packer template files, but older versions of Windows doesn't
 work so nice with a Retina display.
@@ -171,7 +172,7 @@ hyperv-iso output will be in this color.
 ### Using .box Files With Vagrant
 
 The generated box files include a Vagrantfile template that is suitable for use
-with Vagrant 1.7.4+, but the latest ersion is always recommended.
+with Vagrant 1.7.4+, but the latest version is always recommended.
 
 Example Steps for Hyper-V:
 
