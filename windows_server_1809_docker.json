@@ -1,7 +1,7 @@
 {
   "builders": [
     {
-      "boot_wait": "0s",
+      "boot_wait": "60s",
       "communicator": "winrm",
       "cpu": 2,
       "disk_size": "{{user `disk_size`}}",
@@ -9,6 +9,7 @@
       "enable_virtualization_extensions": true,
       "floppy_files": [
         "{{user `autounattend`}}",
+        "./floppy/WindowsPowershell.lnk",
         "./scripts/disable-screensaver.ps1",
         "./scripts/disable-winrm.ps1",
         "./scripts/docker/enable-winrm.ps1",
@@ -24,18 +25,19 @@
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "switch_name": "{{user `hyperv_switchname`}}",
       "type": "hyperv-iso",
-      "vm_name": "WindowsServer2016Docker",
+      "vm_name": "WindowsServer1809Docker",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
       "winrm_username": "vagrant"
     },
     {
-      "boot_wait": "2m",
+      "boot_wait": "60s",
       "communicator": "winrm",
       "disk_size": "{{user `disk_size`}}",
       "disk_type_id": "{{user `disk_type_id`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
+        "./floppy/WindowsPowershell.lnk",
         "./scripts/disable-screensaver.ps1",
         "./scripts/disable-winrm.ps1",
         "./scripts/docker/enable-winrm.ps1",
@@ -51,7 +53,7 @@
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
       "version": 12,
-      "vm_name": "WindowsServer2016Docker",
+      "vm_name": "WindowsServer1809Docker",
       "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
         "RemoteDisplay.vnc.port": "5900",
@@ -68,11 +70,12 @@
       "winrm_username": "vagrant"
     },
     {
-      "boot_wait": "2m",
+      "boot_wait": "60s",
       "communicator": "winrm",
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
+        "./floppy/WindowsPowershell.lnk",
         "./scripts/disable-screensaver.ps1",
         "./scripts/disable-winrm.ps1",
         "./scripts/docker/enable-winrm.ps1",
@@ -86,7 +89,6 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "post_shutdown_delay": "10s",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
       "vboxmanage": [
@@ -103,7 +105,7 @@
           "2"
         ]
       ],
-      "vm_name": "WindowsServer2016Docker",
+      "vm_name": "WindowsServer1809Docker",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
       "winrm_username": "vagrant"
@@ -112,7 +114,7 @@
   "post-processors": [
     {
       "keep_input_artifact": false,
-      "output": "windows_2016_docker_{{.Provider}}.box",
+      "output": "windows_server_1809_docker_{{.Provider}}.box",
       "type": "vagrant",
       "vagrantfile_template": "vagrantfile-windows_2016_core.template"
     }
@@ -128,8 +130,8 @@
     },
     {
       "scripts": [
-        "./scripts/debloat-windows.ps1",
-        "./scripts/docker/set-winrm-automatic.ps1"
+        "./scripts/docker/2016/install-containers-feature.ps1",
+        "./scripts/docker/set-winrm-delayed-automatic.ps1"
       ],
       "type": "powershell"
     },
@@ -144,10 +146,10 @@
         "docker_version={{user `docker_version`}}"
       ],
       "scripts": [
+        "./scripts/docker/set-winrm-automatic.ps1",
         "./scripts/docker/add-docker-group.ps1",
         "./scripts/docker/install-docker.ps1",
         "./scripts/docker/docker-pull.ps1",
-        "./scripts/wait-for-tiworker.ps1",
         "./scripts/docker/open-docker-insecure-port.ps1",
         "./scripts/docker/open-docker-swarm-ports.ps1",
         "./scripts/docker/remove-docker-key-json.ps1",
@@ -156,30 +158,32 @@
       "type": "powershell"
     },
     {
+      "restart_timeout": "{{user `restart_timeout`}}",
+      "type": "windows-restart"
+    },
+    {
       "scripts": [
-        "./scripts/set-winrm-automatic.bat",
-        "./scripts/uac-enable.bat",
         "./scripts/compile-dotnet-assemblies.bat",
-        "./scripts/dis-updates.bat",
         "./scripts/compact.bat"
       ],
       "type": "windows-shell"
     }
   ],
   "variables": {
-    "autounattend": "./answer_files/2016_core/Autounattend.xml",
+    "autounattend": "./answer_files/server_1809/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
-    "docker_images": "microsoft/windowsservercore microsoft/nanoserver microsoft/windowsservercore:ltsc2016 microsoft/nanoserver:sac2016",
+    "docker_images": "mcr.microsoft.com/windows/nanoserver:1809 mcr.microsoft.com/windows/servercore:ltsc2019 mcr.microsoft.com/windows/servercore:1809 mcr.microsoft.com/windows:1809",
     "docker_provider": "ee",
     "docker_version": "18-09-0",
     "headless": "false",
-    "iso_checksum": "70721288BBCDFE3239D8F8C0FAE55F1F",
-    "iso_checksum_type": "md5",
-    "iso_url": "https://software-download.microsoft.com/download/pr/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.ISO",
+    "iso_checksum": "af1edc51f119c39d4eb56bcd9500d1f5ae57c0fbdf6c90ee4ecb535fe82ff0d6",
+    "iso_checksum_type": "sha256",
+    "iso_url": "https://download.my.visualstudio.com/db/en_windows_server_version_1809_x64_dvd_92d11ba1.iso",
+    "manually_download_iso_from": "https://my.visualstudio.com/Downloads?q=Windows%20Server,%20version%201809",
     "restart_timeout": "5m",
-    "vhv_enable": "false",
-    "winrm_timeout": "6h"
+    "vhv_enable": "true",
+    "winrm_timeout": "2h"
   }
 }
 
