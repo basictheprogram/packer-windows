@@ -4,6 +4,8 @@
       "boot_command": "",
       "boot_wait": "6m",
       "communicator": "winrm",
+      "cpus": 2,
+      "disk_adapter_type": "lsisas1068",
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -21,15 +23,13 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": 2048,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
-      "version": 12,
+      "version": 14,
       "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
-        "RemoteDisplay.vnc.port": "5900",
-        "memsize": "2048",
-        "numvcpus": "2",
-        "scsi0.virtualDev": "lsisas1068"
+        "RemoteDisplay.vnc.port": "5900"
       },
       "vmx_remove_ethernet_interfaces": true,
       "vnc_port_max": 5980,
@@ -42,6 +42,7 @@
       "boot_command": "",
       "boot_wait": "6m",
       "communicator": "winrm",
+      "cpus": 2,
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -60,22 +61,9 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": 2048,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "2048"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
-      ],
       "winrm_password": "vagrant",
       "winrm_timeout": "2h",
       "winrm_username": "vagrant"
@@ -158,9 +146,9 @@
   "variables": {
     "autounattend": "./answer_files/10_insider/Autounattend.xml",
     "disk_size": "61440",
-    "iso_checksum": "ae1e3662acfb9435b0b611679c2843f0249a1dfa48033ae7e36df5619d1f592e",
+    "iso_checksum": "2b913368e4b18460755d1cf591ead881278a725c99541a10df899437cce0e119",
     "iso_checksum_type": "sha256",
-    "iso_url": "https://software-download.microsoft.com/db/Windows10_InsiderPreview_Client_x64_en-us_18272.iso",
+    "iso_url": "https://software-download.microsoft.com/db/Windows10_InsiderPreview_EnterpriseVL_x64_en-us_18343.iso",
     "manually_download_iso_from": "https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewadvanced"
   }
 }

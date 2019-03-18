@@ -1,4 +1,4 @@
-# My Retina Windows Templates for Packer
+# Windows Templates for Packer
 
 [![Build status](https://ci.appveyor.com/api/projects/status/76pea1oexae5ca05?svg=true)](https://ci.appveyor.com/project/StefanScherer/packer-windows)
 
@@ -16,16 +16,15 @@ Some of my enhancements are:
 
 * Support of fullscreen Retina display on a MacBook Pro.
 * WinRM, no more OpenSSH
-* PowerShell attached to taskbar in desktop editions
 
 ### Packer Version
 
-[Packer](https://github.com/mitchellh/packer/blob/master/CHANGELOG.md) `1.1.3` is recommended.
+[Packer](https://github.com/mitchellh/packer/blob/master/CHANGELOG.md) `1.3.3` is recommended.
 
 ### Windows Versions
 
 The following Windows versions are known to work (built with VMware Fusion Pro
-10.1.1):
+11.0.2):
 
 * Windows 10
   * Windows 10 1809 -> Vagrant Cloud box [StefanScherer/windows_10](https://app.vagrantup.com/StefanScherer/boxes/windows_10)

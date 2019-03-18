@@ -28,8 +28,13 @@
       "winrm_username": "vagrant"
     },
     {
+      "boot_command": [
+        "<enter>"
+      ],
       "boot_wait": "60s",
       "communicator": "winrm",
+      "cpus": 2,
+      "disk_adapter_type": "lsisas1068",
       "disk_size": "{{user `disk_size`}}",
       "disk_type_id": "{{user `disk_type_id`}}",
       "floppy_files": [
@@ -42,17 +47,15 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": 2048,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
+      "version": 14,
       "vm_name": "WindowsServerInsider",
       "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
         "RemoteDisplay.vnc.port": "5900",
-        "memsize": "2048",
-        "numvcpus": "2",
-        "scsi0.virtualDev": "lsisas1068",
-        "vhv.enable": "{{user `vhv_enable`}}",
-        "virtualHW.version": "12"
+        "vhv.enable": "{{user `vhv_enable`}}"
       },
       "vmx_remove_ethernet_interfaces": true,
       "vnc_port_max": 5980,
@@ -62,8 +65,12 @@
       "winrm_username": "vagrant"
     },
     {
+      "boot_command": [
+        "<enter>"
+      ],
       "boot_wait": "60s",
       "communicator": "winrm",
+      "cpus": 2,
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -77,22 +84,9 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": 2048,
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "2048"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
-      ],
       "vm_name": "WindowsServerInsider",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
@@ -135,9 +129,9 @@
     "disk_size": "61440",
     "disk_type_id": "1",
     "headless": "false",
-    "iso_checksum": "a4a8349a356d2d04219f417973d2a7576b35ab754cd30ad647d5e89d20890122",
+    "iso_checksum": "B1216DBCC06D754E9701D42BE62BA039284F0F2DC4DE782CBB1CC7EE52F3E243",
     "iso_checksum_type": "sha256",
-    "iso_url": "https://software-download.microsoft.com/sg/Windows_InsiderPreview_Server_17692.iso",
+    "iso_url": "https://software-download.microsoft.com/sg/Windows_InsiderPreview_Server_en-us_18346.iso",
     "manually_download_iso_from": "https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewserver",
     "restart_timeout": "5m",
     "vhv_enable": "false",
