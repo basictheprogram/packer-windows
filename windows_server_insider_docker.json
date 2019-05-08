@@ -6,7 +6,7 @@
       ],
       "boot_wait": "60s",
       "communicator": "winrm",
-      "cpu": 2,
+      "cpus": 2,
       "disk_size": "{{user `disk_size`}}",
       "enable_secure_boot": true,
       "enable_virtualization_extensions": true,
@@ -15,7 +15,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "ram_size": 2048,
+      "memory": 2048,
       "secondary_iso_images": [
         "./iso/windows_server_insider_unattend.iso"
       ],
@@ -143,7 +143,6 @@
     "autounattend": "./answer_files/server_insider/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
-    "old_docker_images": "microsoft/nanoserver-insider microsoft/windowsservercore-insider",
     "docker_images": "mcr.microsoft.com/windows/nanoserver/insider:10.0.18356.1 mcr.microsoft.com/windows/servercore/insider:10.0.18356.1 mcr.microsoft.com/windows/insider:10.0.18356.1",
     "docker_provider": "master",
     "docker_version": "",
