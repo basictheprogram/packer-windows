@@ -34,7 +34,7 @@ The following Windows versions are known to work (built with VMware Fusion Pro
 * Windows Server Core
   * Windows Server 2016 without and with Docker -> Vagrant Cloud box [StefanScherer/windows_2016_docker](https://app.vagrantup.com/StefanScherer/boxes/windows_2016_docker)
   * Windows Server 2019 without and with Docker -> Vagrant Cloud box [StefanScherer/windows_2019_docker](https://app.vagrantup.com/StefanScherer/boxes/windows_2019_docker)
-  * Windows Server 1709, 1803, 1809, and 1903 all without and with Docker
+  * Windows Server 1709, 1803, 1809, 1903, and 1909 all without and with Docker
   * Windows Server InsiderPreview Semi-Annual without and with Docker
 
 You may find other packer template files, but older versions of Windows doesn't
@@ -174,7 +174,7 @@ To build a KVM/qemu box, first make sure:
 
 * You are a member of the kvm group on your machine. You can list the groups you are member of by running `groups`. It should
   include the `kvm` group. If you're not a member, run `sudo usermod -aG kvm $(whoami)` to add yourself.
-* You have downloaded [the iso image with the Windows drivers for paravirtualized KVM/qemu hardware](wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso).
+* You have downloaded [the iso image with the Windows drivers for paravirtualized KVM/qemu hardware](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso).
   You can do this from the command line: `wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O virtio-win.iso`.
 
 You can use the following sample command to build a KVM/qemu box:
@@ -198,4 +198,4 @@ vagrant up --provider hyperv
 
 ### Contributing
 
-Pull requests welcomed, but normally should go to Joe's repo.
+Pull request are welcome!
