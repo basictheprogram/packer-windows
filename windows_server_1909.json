@@ -18,9 +18,8 @@
       ],
       "guest_additions_mode": "disable",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "switch_name": "{{user `hyperv_switchname`}}",
       "type": "hyperv-iso",
@@ -47,9 +46,8 @@
       "guest_os_type": "windows9srv-64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
       "version": 14,
@@ -84,9 +82,8 @@
       "guest_os_type": "Windows2016_64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
       "vm_name": "WindowsServer1909",
@@ -107,13 +104,13 @@
     {
       "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
       "scripts": [
-        "./scripts/vm-guest-tools.bat",
         "./scripts/enable-rdp.bat"
       ],
       "type": "windows-shell"
     },
     {
       "scripts": [
+        "./scripts/vm-guest-tools.ps1",
         "./scripts/debloat-windows.ps1"
       ],
       "type": "powershell"
@@ -137,9 +134,9 @@
     "autounattend": "./answer_files/server_1909/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
+    "memory": "2048",
     "headless": "false",
-    "iso_checksum": "62256AE2D89C93990963185065B53E7806E0203E9EFCFBF15E2FAFB3FA31FE84",
-    "iso_checksum_type": "sha256",
+    "iso_checksum": "sha256:62256AE2D89C93990963185065B53E7806E0203E9EFCFBF15E2FAFB3FA31FE84",
     "iso_url": "https://download.my.visualstudio.com/db/en_windows_server_version_1909_x64_dvd_894c6446.iso",
     "manually_download_iso_from": "https://my.visualstudio.com/Downloads?q=Windows%20Server,%20version%201909",
     "restart_timeout": "5m",

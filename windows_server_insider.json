@@ -13,9 +13,8 @@
       "generation": 2,
       "guest_additions_mode": "disable",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "secondary_iso_images": [
         "./iso/windows_server_insider_unattend.iso"
       ],
@@ -38,16 +37,14 @@
       "disk_size": "{{user `disk_size`}}",
       "disk_type_id": "{{user `disk_type_id`}}",
       "floppy_files": [
-        "{{user `autounattend`}}",
         "./scripts/disable-winrm.ps1",
         "./scripts/enable-winrm.ps1"
       ],
       "guest_os_type": "windows9srv-64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
       "version": 14,
@@ -82,9 +79,8 @@
       "guest_os_type": "Windows2016_64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
       "vm_name": "WindowsServerInsider",
@@ -105,10 +101,15 @@
     {
       "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
       "scripts": [
-        "./scripts/vm-guest-tools.bat",
         "./scripts/enable-rdp.bat"
       ],
       "type": "windows-shell"
+    },
+    {
+      "scripts": [
+        "./scripts/vm-guest-tools.ps1"
+      ],
+      "type": "powershell"
     },
     {
       "restart_timeout": "{{user `restart_timeout`}}",
@@ -128,10 +129,10 @@
     "autounattend": "./answer_files/server_insider/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
+    "memory": "2048",
     "headless": "false",
-    "iso_checksum": "9091bd7f18acc067140511c507ddd9c34f3a110126308aa998b18f16c9ea61f7",
-    "iso_checksum_type": "sha256",
-    "iso_url": "https://software-download.microsoft.com/sg/Windows_InsiderPreview_Server_en-us_19035.iso",
+    "iso_checksum": "sha256:72e950c22f5db8ca4448d8eb277cdc8236901fad3f0900f7a7564cffa0306a78",
+    "iso_url": "https://software-download.microsoft.com/db/Windows_InsiderPreview_Server_vNext_en-us_20201.iso",
     "manually_download_iso_from": "https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewserver",
     "restart_timeout": "5m",
     "vhv_enable": "false",

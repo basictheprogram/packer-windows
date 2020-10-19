@@ -4,7 +4,7 @@
       "boot_wait": "2m",
       "cpus": 2,
       "disk_adapter_type": "lsisas1068",
-      "disk_size": 61440,
+      "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "./answer_files/81/Autounattend.xml",
         "./scripts/microsoft-updates.bat",
@@ -13,14 +13,13 @@
       ],
       "guest_os_type": "windows8-64",
       "headless": true,
-      "iso_checksum": "5e4ecb86fd8619641f1d58f96e8561ec",
-      "iso_checksum_type": "md5",
+      "iso_checksum": "md5:5e4ecb86fd8619641f1d58f96e8561ec",
       "iso_url": "https://download.microsoft.com/download/B/9/9/B999286E-0A47-406D-8B3D-5B5AD7373A4A/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_ENTERPRISE_EVAL_EN-US-IRM_CENA_X64FREE_EN-US_DV5.ISO",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
       "ssh_timeout": "4h",
+      "ssh_username": "vagrant",
       "tools_upload_flavor": "windows",
       "type": "vmware-iso",
       "vmx_data": {
@@ -34,7 +33,7 @@
     {
       "boot_wait": "2m",
       "cpus": 2,
-      "disk_size": 61440,
+      "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "./answer_files/81/Autounattend.xml",
         "./scripts/microsoft-updates.bat",
@@ -43,14 +42,13 @@
       ],
       "guest_os_type": "Windows81_64",
       "headless": false,
-      "iso_checksum": "5e4ecb86fd8619641f1d58f96e8561ec",
-      "iso_checksum_type": "md5",
+      "iso_checksum": "md5:5e4ecb86fd8619641f1d58f96e8561ec",
       "iso_url": "https://download.microsoft.com/download/B/9/9/B999286E-0A47-406D-8B3D-5B5AD7373A4A/9600.16384.WINBLUE_RTM.130821-1623_X64FRE_ENTERPRISE_EVAL_EN-US-IRM_CENA_X64FREE_EN-US_DV5.ISO",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
       "ssh_timeout": "4h",
+      "ssh_username": "vagrant",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -97,6 +95,10 @@
       ],
       "type": "shell"
     }
-  ]
+  ],
+  "variables": {
+    "disk_size": "61440",
+    "memory": "2048"
+  }
 }
 

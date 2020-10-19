@@ -13,9 +13,8 @@
       "generation": 2,
       "guest_additions_mode": "disable",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "secondary_iso_images": [
         "./iso/windows_server_insider_unattend.iso"
       ],
@@ -45,9 +44,8 @@
       "guest_os_type": "windows9srv-64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
       "version": 14,
@@ -82,9 +80,8 @@
       "guest_os_type": "Windows2016_64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
       "vm_name": "WindowsServerInsiderDocker",
@@ -104,13 +101,13 @@
   "provisioners": [
     {
       "scripts": [
-        "./scripts/vm-guest-tools.bat",
         "./scripts/enable-rdp.bat"
       ],
       "type": "windows-shell"
     },
     {
       "scripts": [
+        "./scripts/vm-guest-tools.ps1",
         "./scripts/docker/2016/install-containers-feature.ps1",
         "./scripts/docker/set-winrm-delayed-automatic.ps1"
       ],
@@ -143,12 +140,12 @@
     "autounattend": "./answer_files/server_insider/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
+    "memory": "2048",
     "docker_images": "mcr.microsoft.com/windows/nanoserver/insider:10.0.19035.1 mcr.microsoft.com/windows/servercore/insider:10.0.19035.1 mcr.microsoft.com/windows/insider:10.0.19035.1",
     "docker_provider": "master",
     "docker_version": "",
     "headless": "false",
-    "iso_checksum": "e9d31bd3bc62b8f0d06dadc9fcbe1e76819b5ed494a187bad9ad8f835c79f6fc",
-    "iso_checksum_type": "sha256",
+    "iso_checksum": "sha256:e9d31bd3bc62b8f0d06dadc9fcbe1e76819b5ed494a187bad9ad8f835c79f6fc",
     "iso_url": "https://software-download.microsoft.com/pr/Windows_InsiderPreview_Server_en-us_19035.iso",
     "manually_download_iso_from": "https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewserver",
     "restart_timeout": "5m",

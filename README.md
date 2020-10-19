@@ -19,7 +19,7 @@ Some of my enhancements are:
 
 ### Packer Version
 
-[Packer](https://github.com/mitchellh/packer/blob/master/CHANGELOG.md) `1.3.3` is recommended.
+[Packer](https://github.com/mitchellh/packer/blob/master/CHANGELOG.md) `1.6.0` is recommended.
 
 ### Windows Versions
 

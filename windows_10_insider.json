@@ -21,9 +21,8 @@
       "guest_os_type": "windows9-64",
       "headless": false,
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
       "version": 14,
@@ -59,9 +58,8 @@
       "guest_os_type": "Windows10_64",
       "headless": false,
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
       "winrm_password": "vagrant",
@@ -81,9 +79,8 @@
       "generation": 2,
       "guest_additions_mode": "disable",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "secondary_iso_images": [
         "./iso/windows_10_insider_unattend.iso"
       ],
@@ -146,8 +143,8 @@
   "variables": {
     "autounattend": "./answer_files/10_insider/Autounattend.xml",
     "disk_size": "61440",
-    "iso_checksum": "b4b774e4816dc4b28ea14ea1e7283ac53beb2be216aca3a0cbcceb60a05d32de",
-    "iso_checksum_type": "sha256",
+    "memory": "2048",
+    "iso_checksum": "sha256:b4b774e4816dc4b28ea14ea1e7283ac53beb2be216aca3a0cbcceb60a05d32de",
     "iso_url": "https://software-download.microsoft.com/pr/Windows10_InsiderPreview_EnterpriseVL_x64_en-us_19035.iso",
     "manually_download_iso_from": "https://www.microsoft.com/en-us/software-download/windowsinsiderpreviewadvanced"
   }

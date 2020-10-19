@@ -11,9 +11,6 @@ if (Test-Path env:docker_version) {
 $ProgressPreference = 'SilentlyContinue'
 if ($docker_provider -eq "ce") {
   $zip_url = $("https://download.docker.com/win/static/edge/x86_64/docker-{0}-ce.zip" -f $docker_version)
-} elseif ($docker_provider -eq "ee") {
-  $folder = $docker_version -replace "\.\d+$", ""
-  $zip_url = $("https://download.docker.com/components/engine/windows-server/{0}/docker-{1}.zip" -f $folder, $docker_version)
 } elseif ($docker_provider -eq "master") {
   $docker_version = "master"
   $zip_url = "https://master.dockerproject.com/windows/x86_64/docker.zip"
@@ -33,15 +30,8 @@ if ($zip_url) {
   Write-Output "Registering docker service ..."
   . dockerd --register-service
 } else {
-  Write-Output "Install-PackageProvider ..."
-  Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-  Write-Output "Install-Module $docker_provider ..."
-  Install-Module -Name $docker_provider -Repository PSGallery -Force
-  Write-Output "Install-Package docker version $docker_version ..."
-  Set-PSRepository -InstallationPolicy Trusted -Name PSGallery
-  $ErrorActionStop = 'SilentlyContinue'
-  Install-Package -Name docker -ProviderName $docker_provider -RequiredVersion $docker_version -Force
-  Set-PSRepository -InstallationPolicy Untrusted -Name PSGallery  
+  Write-Output "Use get.mirantis.com/install.ps1 ..."
+  iwr -useb https://get.mirantis.com/install.ps1 | iex
 }
 
 $ErrorActionPreference = 'Stop'
