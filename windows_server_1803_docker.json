@@ -3,7 +3,7 @@
     {
       "boot_wait": "60s",
       "communicator": "winrm",
-      "cpu": 2,
+      "cpus": 2,
       "disk_size": "{{user `disk_size`}}",
       "enable_secure_boot": true,
       "enable_virtualization_extensions": true,
@@ -19,9 +19,8 @@
       ],
       "guest_additions_mode": "disable",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "ram_size": 2048,
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "switch_name": "{{user `hyperv_switchname`}}",
       "type": "hyperv-iso",
@@ -33,6 +32,8 @@
     {
       "boot_wait": "60s",
       "communicator": "winrm",
+      "cpus": 2,
+      "disk_adapter_type": "lsisas1068",
       "disk_size": "{{user `disk_size`}}",
       "disk_type_id": "{{user `disk_type_id`}}",
       "floppy_files": [
@@ -48,18 +49,15 @@
       "guest_os_type": "windows9srv-64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
-      "version": 12,
+      "version": 14,
       "vm_name": "WindowsServer1803Docker",
       "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
         "RemoteDisplay.vnc.port": "5900",
-        "memsize": "2048",
-        "numvcpus": "2",
-        "scsi0.virtualDev": "lsisas1068",
         "vhv.enable": "{{user `vhv_enable`}}"
       },
       "vmx_remove_ethernet_interfaces": true,
@@ -72,6 +70,7 @@
     {
       "boot_wait": "60s",
       "communicator": "winrm",
+      "cpus": 2,
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -87,24 +86,10 @@
       "guest_os_type": "Windows2016_64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "2048"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
-      ],
       "vm_name": "WindowsServer1803Docker",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
@@ -173,12 +158,12 @@
     "autounattend": "./answer_files/server_1803/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
-    "docker_images": "microsoft/windowsservercore:1803 microsoft/nanoserver:1803",
+    "memory": "2048",
+    "docker_images": "mcr.microsoft.com/windows/servercore:1803 mcr.microsoft.com/windows/nanoserver:1803",
     "docker_provider": "ee",
-    "docker_version": "18-03-1-ee-3",
+    "docker_version": "19.03.12",
     "headless": "false",
-    "iso_checksum": "1f396b448ae0a68e5a2f694b0afabb61498e20a5df38c874aacb4e940a661b61",
-    "iso_checksum_type": "sha256",
+    "iso_checksum": "sha256:1f396b448ae0a68e5a2f694b0afabb61498e20a5df38c874aacb4e940a661b61",
     "iso_url": "https://download.my.visualstudio.com/db/en_windows_server_version_1803_x64_dvd_12063476.iso",
     "manually_download_iso_from": "https://my.visualstudio.com/Downloads?q=Windows%20Server,%20version%201803\u0026pgroup=",
     "restart_timeout": "5m",

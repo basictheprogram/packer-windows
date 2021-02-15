@@ -1,9 +1,53 @@
 {
   "builders": [
     {
+      "accelerator": "kvm",
       "boot_wait": "6m",
       "communicator": "winrm",
-      "cpu": "2",
+      "cpus": "2",
+      "disk_size": "{{user `disk_size`}}",
+      "floppy_files": [
+        "{{user `autounattend`}}",
+        "./floppy/WindowsPowershell.lnk",
+        "./floppy/PinTo10.exe",
+        "./scripts/fixnetwork.ps1",
+        "./scripts/disable-screensaver.ps1",
+        "./scripts/disable-winrm.ps1",
+        "./scripts/enable-winrm.ps1",
+        "./scripts/microsoft-updates.bat",
+        "./scripts/win-updates.ps1"
+      ],
+      "headless": true,
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_url": "{{user `iso_url`}}",      
+      "memory": "{{user `memory`}}",
+      "output_directory": "windows_10-qemu",
+      "qemuargs": [
+        [
+          "-drive",
+          "file=windows_10-qemu/{{ .Name }},if=virtio,cache=writeback,discard=ignore,format=qcow2,index=1"
+        ],
+        [
+          "-drive",
+          "file={{ user `iso_url` }},media=cdrom,index=2"
+        ],
+        [
+          "-drive",
+          "file={{ user `virtio_win_iso` }},media=cdrom,index=3"
+        ]
+      ],
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "type": "qemu",
+      "vm_name": "{{user `vm_name`}}",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "{{user `winrm_timeout`}}",
+      "winrm_username": "vagrant"
+    },
+    {
+      "boot_wait": "6m",
+      "communicator": "winrm",
+      "configuration_version": "8.0",
+      "cpus": "2",
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -18,13 +62,12 @@
       ],
       "guest_additions_mode": "none",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "ram_size": "2048",
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "switch_name": "{{user `switch_name`}}",
       "type": "hyperv-iso",
-      "vm_name": "windows_10",
+      "vm_name": "{{user `vm_name`}}",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
       "winrm_username": "vagrant"
@@ -33,6 +76,8 @@
       "boot_command": "",
       "boot_wait": "6m",
       "communicator": "winrm",
+      "cpus": 2,
+      "disk_adapter_type": "lsisas1068",
       "disk_size": "{{user `disk_size`}}",
       "disk_type_id": "{{user `disk_type_id`}}",
       "floppy_files": [
@@ -49,18 +94,15 @@
       "guest_os_type": "windows9-64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "vmware-iso",
-      "version": 12,
-      "vm_name": "windows_10",
+      "version": 14,
+      "vm_name": "{{user `vm_name`}}",
       "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
-        "RemoteDisplay.vnc.port": "5900",
-        "memsize": "2048",
-        "numvcpus": "2",
-        "scsi0.virtualDev": "lsisas1068"
+        "RemoteDisplay.vnc.port": "5900"
       },
       "vmx_remove_ethernet_interfaces": true,
       "vnc_port_max": 5980,
@@ -73,6 +115,7 @@
       "boot_command": "",
       "boot_wait": "6m",
       "communicator": "winrm",
+      "cpus": 2,
       "disk_size": "{{user `disk_size`}}",
       "floppy_files": [
         "{{user `autounattend`}}",
@@ -89,25 +132,55 @@
       "guest_os_type": "Windows10_64",
       "headless": "{{user `headless`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
+      "memory": "{{user `memory`}}",
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "virtualbox-iso",
-      "vboxmanage": [
+      "vm_name": "{{user `vm_name`}}",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "{{user `winrm_timeout`}}",
+      "winrm_username": "vagrant"
+    },
+    {
+      "boot_command": "",
+      "boot_wait": "6m",
+      "communicator": "winrm",
+      "cpus": 2,
+      "disk_size": "{{user `disk_size`}}",
+      "floppy_files": [
+        "{{user `autounattend`}}",
+        "./floppy/WindowsPowershell.lnk",
+        "./floppy/PinTo10.exe",
+        "./scripts/fixnetwork.ps1",
+        "./scripts/disable-screensaver.ps1",
+        "./scripts/disable-winrm.ps1",
+        "./scripts/enable-winrm.ps1",
+        "./scripts/microsoft-updates.bat",
+        "./scripts/win-updates.ps1"
+      ],
+      "guest_os_type": "win-10",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_url": "{{user `iso_url`}}",
+      "memory": "{{user `memory`}}",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "type": "parallels-iso",
+      "parallels_tools_flavor": "win",
+      "parallels_tools_mode": "disable",
+      "prlctl": [
         [
-          "modifyvm",
+          "set",
           "{{.Name}}",
-          "--memory",
-          "2048"
+          "--adaptive-hypervisor",
+          "on"
         ],
         [
-          "modifyvm",
+          "set",
           "{{.Name}}",
-          "--cpus",
-          "2"
+          "--efi-boot",
+          "off"
         ]
       ],
-      "vm_name": "windows_10",
+      "vm_name": "{{user `vm_name`}}",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
       "winrm_username": "vagrant"
@@ -126,13 +199,13 @@
       "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
       "remote_path": "/tmp/script.bat",
       "scripts": [
-        "./scripts/vm-guest-tools.bat",
         "./scripts/enable-rdp.bat"
       ],
       "type": "windows-shell"
     },
     {
       "scripts": [
+        "./scripts/vm-guest-tools.ps1",
         "./scripts/debloat-windows.ps1"
       ],
       "type": "powershell"
@@ -166,13 +239,14 @@
     "autounattend": "./answer_files/10/Autounattend.xml",
     "disk_size": "61440",
     "disk_type_id": "1",
+    "memory": "2048",
     "headless": "false",
-    "iso_checksum": "a37718a13ecff4e8497e8feef50e4c91348e97c6bfe93474e364c9d03ad381a2",
-    "iso_checksum_type": "sha256",
-    "iso_url": "https://software-download.microsoft.com/download/pr/17763.1.180914-1434.rs5_release_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "iso_checksum": "sha256:f1a4f2176259167cd2c8bf83f3f5a4039753b6cc28c35ac624da95a36e9620fc",
+    "iso_url": "https://software-download.microsoft.com/download/pr/19041.264.200511-0456.vb_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
     "restart_timeout": "5m",
     "vhv_enable": "false",
+    "virtio_win_iso": "~/virtio-win.iso",
+    "vm_name": "windows_10",
     "winrm_timeout": "6h"
   }
 }
-
