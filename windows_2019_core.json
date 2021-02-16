@@ -26,6 +26,10 @@
         ],
         [
           "-drive",
+          "file={{ user `iso_url` }},media=cdrom,index=2"
+        ],
+        [
+          "-drive",
           "file={{ user `virtio_win_iso` }},media=cdrom,index=3"
         ]
       ],
